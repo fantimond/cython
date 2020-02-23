@@ -8,7 +8,7 @@ from distutils.core import setup
 from distutils.extension import Extension
 from Cython.Build import cythonize
 
-ext_modules = cythonize("**/*.pyx", exclude="numpy_*.pyx")
+ext_modules = cythonize("**/*.pyx", exclude="numpy_*.pyx", build_dir="build")
 
 # Only compile the following if numpy is installed.
 try:
@@ -16,7 +16,7 @@ try:
     numpy_demo = [Extension("*",
                             ["numpy_*.pyx"],
                             include_dirs=get_numpy_include_dirs())]
-    ext_modules.extend(cythonize(numpy_demo))
+    ext_modules.extend(cythonize(numpy_demo, build_dir="build"))
 except ImportError:
     pass
 
